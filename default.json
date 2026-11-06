@@ -1,0 +1,49 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Base configuration for all repositories of rapaglaz",
+  "extends": ["config:best-practices", ":disableDependencyDashboard"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["* 0-9 * * 1"],
+  "labels": ["dependencies"],
+  "prHourlyLimit": 3,
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "schedule": ["* 0-9 1 * *"]
+  },
+  "vulnerabilityAlerts": {
+    "addLabels": ["security"],
+    "vulnerabilityFixStrategy": "highest"
+  },
+  "packageRules": [
+    {
+      "description": "One weekly PR for all stable patch updates",
+      "matchCurrentVersion": "!/^v?0(\\.|$)/",
+      "matchUpdateTypes": ["patch"],
+      "groupName": "patch dependencies"
+    },
+    {
+      "description": "Digest and pin updates have no release timestamp, so they skip the release age. No matchCurrentVersion, because floating tags have no usable version",
+      "matchUpdateTypes": ["digest", "pin"],
+      "groupName": "digest and pin updates",
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "One weekly PR for all stable minor updates",
+      "matchCurrentVersion": "!/^v?0(\\.|$)/",
+      "matchUpdateTypes": ["minor"],
+      "groupName": "minor dependencies"
+    },
+    {
+      "description": "Mark major updates, because they need a review of breaking changes",
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["major-update"]
+    },
+    {
+      "description": "Mark updates of 0.x versions, because they can break. The optional v covers tags of GitHub Actions and Go modules",
+      "matchCurrentVersion": "/^v?0(\\.|$)/",
+      "matchUpdateTypes": ["minor", "patch"],
+      "addLabels": ["unstable-version"]
+    }
+  ]
+}

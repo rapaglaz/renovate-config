@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Dependency Dashboard with approval of risky updates",
+  "extends": [":dependencyDashboard"],
+  "dependencyDashboardLabels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Major updates need approval in the dashboard",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Updates of 0.x versions can break, so they need approval in the dashboard",
+      "matchCurrentVersion": "/^v?0(\\.|$)/",
+      "matchUpdateTypes": ["minor", "patch"],
+      "dependencyDashboardApproval": true
+    }
+  ]
+}

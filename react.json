@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "React group for repositories that use React",
+  "packageRules": [
+    {
+      "description": "React packages: update together",
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "react-is",
+        "react-test-renderer",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "react"
+    }
+  ]
+}
